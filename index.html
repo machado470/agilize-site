@@ -14,8 +14,8 @@
   <link rel="canonical" href="https://machado470.github.io/agilize-site/">
 
   <!-- Favicon / App icons -->
-  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="./favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:locale" content="pt_BR">
@@ -75,10 +75,12 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js" defer></script>
   <!-- Remova o THREE se não usar fundo 3D -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js" defer></script>
 
   <!-- Tokens / Base -->
 <style>
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:static;width:auto;height:auto;margin:0;clip:auto;white-space:normal;padding:.5rem .75rem;border:1px solid var(--line);border-radius:.5rem;background:var(--bg)}
 
   /* ================= TOKENS BASE ================= */
   :root{
@@ -314,7 +316,7 @@
   <div class="container mx-auto px-6 py-4">
     <div class="flex justify-between items-center">
       <!-- Logo -->
-      <a href="/" class="logo text-2xl md:text-3xl group" aria-label="AGILIZE - Início">
+      <a href="./" class="logo text-2xl md:text-3xl group" aria-label="AGILIZE - Início">
         <span class="relative paint-sweep">AGILIZE</span>
       </a>
 
