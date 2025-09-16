@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FF6B00" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="light">
+
+  <title>AGILIZE | Agência Digital Premium</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Agência digital premium: sites, social e tráfego pago com foco em performance e crescimento real.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://seu-dominio.com/">
+
+  <!-- Favicon / App icons -->
+  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="AGILIZE">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://seu-dominio.com/">
+  <meta property="og:title" content="AGILIZE — Agência Digital Premium">
+  <meta property="og:description" content="Conteúdo que vende. Sites rápidos e tráfego que converte.">
+  <meta property="og:image" content="https://seu-dominio.com/og-image.jpg">
+  <meta property="og:image:alt" content="AGILIZE — Agência Digital Premium">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AGILIZE — Agência Digital Premium">
+  <meta name="twitter:description" content="Conteúdo que vende. Sites rápidos e tráfego que converte.">
+  <meta name="twitter:image" content="https://seu-dominio.com/og-image.jpg">
+
+  <!-- Perf: DNS + Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind config deve vir ANTES do CDN para aplicar as extensões -->
+<script>
+  window.tailwind = window.tailwind || {};
+  window.tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: { DEFAULT:'#FF6B00', light:'#FF8A33', dark:'#E55D00' }
+        },
+        fontFamily: { poppins: ['Poppins','sans-serif'] },
+        boxShadow: {
+          'glow': '0 0 24px rgba(255,107,0,.22)',
+          'card': '0 6px 20px rgba(0,0,0,.06)',
+          'card-lg': '0 12px 36px rgba(0,0,0,.10)'
+        },
+        borderRadius: {
+          xl: '1rem',
+          '2xl': '1.25rem'
+        }
+      }
+    }
+  };
+</script>
+
+
+  <!-- Libs (defer) -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js" defer></script>
+  <!-- Remova o THREE se não usar fundo 3D -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js" defer></script>
+
+  <!-- Tokens / Base -->
+<style>
+
+  /* ================= TOKENS BASE ================= */
+  :root{
+    /* Core brand */
+    --primary:#FF6B00; --primary-2:#FF8A33; --primary-3:#E55D00;
+
+    /* Neutros */
+    --bg:#ffffff; --bg-2:#fafafa; --bg-3:#f5f5f5;
+    --text:#0b0b0b; --muted:#4b5563; --line:#eaeaea;
+
+    /* Radius & sombras */
+    --radius:16px; --radius-sm:12px; --radius-lg:24px;
+    --shadow-sm:0 4px 14px rgba(0,0,0,.06);
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+    --shadow-glow:0 0 30px rgba(255,107,0,.25);
+
+    /* Timings */
+    --t-fast:.2s; --t-med:.3s;
+  }
+
+  /* ===== Temas ===== */
+  .theme--classic{ /* AGILIZE padrão */ }
+  .theme--craft{  /* CasaMilano */
+    --primary:#7A5C3E; --primary-2:#A38362; --primary-3:#5C4430;
+    --bg:#fffdf8; --bg-2:#faf3ea; --bg-3:#f3eadf; --line:#eadfce;
+  }
+  .theme--forja{  /* Forja */
+    --primary:#E55D00; --primary-2:#FF6B00; --primary-3:#B24300;
+    --bg:#ffffff; --bg-2:#f7f7f8; --bg-3:#eef0f2; --line:#dde1e6;
+  }
+
+  /* ================= BASE CLARA ================= */
+  *{ box-sizing:border-box; margin:0; padding:0; font-family:'Poppins',sans-serif; }
+  html:focus-within{ scroll-behavior:smooth; }
+  body{ background:linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%); color:var(--text); overflow-x:hidden; }
+
+  /* Reduce Motion */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* Scrollbar cross-browser */
+  *{ scrollbar-width:thin; scrollbar-color:#d4d4d4 var(--bg-2); }
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg-2); }
+  ::-webkit-scrollbar-thumb{ background:#d4d4d4; border-radius:6px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#bfbfbf; }
+
+  /* ================= SISTEMA DE COMPONENTES ================= */
+  /* Seções */
+  .section{ position:relative; padding:clamp(5rem,8vw,8rem) 0; background:var(--bg); }
+  .section--alt{ background:linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%); }
+  .section--dark{ background:#0b0b0b; color:#f5f5f5; }
+  .agz-glow-top{ position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg,transparent,rgba(255,107,0,.28),transparent); }
+
+  .blobs::before{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.08;
+    background:
+      radial-gradient(600px 220px at 85% 10%, var(--primary) 0%, transparent 60%),
+      radial-gradient(520px 200px at 12% 88%, var(--primary-2) 0%, transparent 62%);
+  }
+  .hr-sep{ height:1px; background:var(--line); opacity:.9; }
+
+  /* Navegação */
+  .logo{ font-weight:800; letter-spacing:1.5px; position:relative; display:inline-block; }
+  .logo::after{ content:""; position:absolute; width:6px; height:6px; background:var(--primary); border-radius:50%; bottom:5px; right:-8px; box-shadow:0 0 10px rgba(255,107,0,.6); }
+  .nav-link{ position:relative; padding:.5rem 0; font-weight:500; color:#374151; transition:color var(--t-fast), transform var(--t-fast); }
+  .nav-link::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:linear-gradient(90deg,var(--primary),var(--primary-2)); transition:width var(--t-fast); }
+  .nav-link:hover{ color:var(--primary); }
+  .nav-link:hover::after{ width:100%; }
+  .nav-link:focus-visible{ outline:2px solid var(--primary); outline-offset:4px; border-radius:4px; }
+
+  /* Cards */
+  .card{
+    background:var(--bg); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow-sm);
+    transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
+    will-change: transform;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:color-mix(in srgb,var(--line),var(--primary) 18%); }
+  .card--soft{ background:var(--bg-2); }
+  .badge{ display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .6rem; font-size:.75rem; border-radius:999px; border:1px solid var(--line); background:var(--bg-2); color:var(--muted); }
+
+  /* Botões */
+  .btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    border-radius:var(--radius); padding:.875rem 1.25rem;
+    font-weight:600; line-height:1;
+    transition: transform var(--t-med), box-shadow var(--t-med), background var(--t-med), border-color var(--t-med), filter var(--t-fast);
+    will-change: transform, filter;
+  }
+  .btn:focus-visible{ outline:2px solid var(--primary); outline-offset:3px; border-radius:calc(var(--radius) + 2px); }
+  .btn--pill{ border-radius:999px; }
+  .btn--block{ width:100%; justify-content:center; }
+
+  /* Primário com feixe de luz (motion-safe) */
+  .btn--primary{
+    position:relative; overflow:hidden; color:#fff;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    box-shadow:var(--shadow-glow);
+  }
+  .btn--primary::after{
+    content:""; position:absolute; top:0; left:-150%; width:50%; height:100%;
+    background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.6) 50%, transparent 100%);
+    transform:skewX(-20deg);
+    animation:shine 3s infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .btn--primary::after{ animation:none !important; } }
+  @media (hover:hover){
+    .btn--primary:hover{ transform:translateY(-1px); }
+  }
+
+  /* Secundário e Ghost */
+  .btn--secondary{ color:var(--text); background:#fff; border:2px solid var(--line); }
+  .btn--secondary:hover{ border-color:var(--primary); background:color-mix(in srgb,#fff,var(--primary) 6%); }
+  .btn--ghost{ color:var(--text); background:transparent; border:2px solid transparent; }
+  .btn--ghost:hover{ border-color:var(--line); background:var(--bg-2); }
+
+  /* Tamanhos */
+  .btn--lg{ padding:1rem 1.5rem; border-radius:calc(var(--radius) + 6px); }
+  .btn--sm{ padding:.625rem .875rem; border-radius:var(--radius-sm); }
+
+  /* Títulos */
+  .kicker{
+    display:inline-block; padding:.25rem .75rem; border-radius:999px;
+    background:color-mix(in srgb,var(--primary),#fff 85%); color:var(--primary-3);
+    font-weight:600; font-size:.875rem; letter-spacing:.02em;
+  }
+  .h-title{ font-weight:800; letter-spacing:-.02em; }
+
+  /* WhatsApp FAB (claro) */
+  .whatsapp-btn{ box-shadow:0 8px 24px rgba(255,107,0,.25); transition:transform var(--t-fast); }
+  .whatsapp-btn:hover{ transform:translateY(-3px) scale(1.03); }
+
+  /* Mobile Menu */
+  .mobile-menu{
+    transition: transform .5s cubic-bezier(.16,1,.3,1);
+    transform: translateY(-100%); background:var(--bg); border-bottom:1px solid var(--line);
+  }
+  .mobile-menu.open{ transform: translateY(0); }
+
+  /* Helpers */
+  .text-gradient{
+    background:linear-gradient(90deg,var(--primary),var(--primary-2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; color:transparent;
+  }
+  .agz-reveal{ opacity:0; transform:translateY(10px); transition:opacity .45s ease, transform .45s ease; }
+  .agz-reveal.is-in{ opacity:1; transform:translateY(0); }
+
+  /* Keyframes do feixe */
+  @keyframes shine{
+    0%{ left:-150%; }
+    50%{ left:120%; }
+    100%{ left:120%; }
+  }
+
+/* Fallback: se @property não existir, usa hover simples (preto→laranja) */
+@supports not (property: --p) {
+  .paint-sweep{
+    background: none !important;
+    -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+    color: var(--text) !important;
+  }
+  .logo:hover .paint-sweep{ color: var(--primary) !important; }
+}
+
+
+
+</style>
+
+
+ <!-- JSON-LD (Organization + Website + busca interna) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://seu-dominio.com/#organization",
+      "name": "AGILIZE",
+      "url": "https://seu-dominio.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://seu-dominio.com/og-image.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "sameAs": [
+        "https://www.instagram.com/seu-perfil",
+        "https://www.linkedin.com/company/seu-perfil"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+55-47-99754-4016",
+        "contactType": "customer service",
+        "areaServed": "BR",
+        "availableLanguage": ["pt-BR","en"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://seu-dominio.com/#website",
+      "url": "https://seu-dominio.com/",
+      "name": "AGILIZE",
+      "publisher": {
+        "@id": "https://seu-dominio.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://seu-dominio.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+
+
+
+
+
+
+
+
+<body class="min-h-screen font-poppins">
+<!-- ================= HEADER (logo com efeito / menu limpo) ================= -->
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[var(--bg)]/80 backdrop-blur border-b border-[var(--line)]">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[var(--bg)] border border-[var(--line)] px-3 py-2 rounded">Pular para o conteúdo</a>
+
+  <div class="container mx-auto px-6 py-4">
+    <div class="flex justify-between items-center">
+      <!-- Logo -->
+      <a href="/" class="logo text-2xl md:text-3xl group" aria-label="AGILIZE - Início">
+        <span class="relative paint-sweep">AGILIZE</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-10" aria-label="Navegação principal">
+        <a href="#about"         class="nav-link anchor-link">Sobre</a>
+        <a href="#services"      class="nav-link anchor-link">Serviços</a>
+        <a href="#results"       class="nav-link anchor-link">Resultados</a>
+        <a href="#testimonials"  class="nav-link anchor-link">Depoimentos</a>
+        <a href="#plans"         class="nav-link anchor-link">Planos</a>
+        <a href="#contact"       class="nav-link anchor-link">Contato</a>
+        <a href="#contact" class="btn btn--primary btn--sm" aria-label="Ir para a seção de contato">
+          Fale Conosco
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="lg:hidden text-black p-2 rounded-md hover:bg-[var(--bg-2)] transition-colors" aria-label="Abrir menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="h-6 w-6 icon-sheen" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        <svg class="h-6 w-6 hidden icon-sheen" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="mobile-menu lg:hidden absolute w-full bg-[var(--bg)] border-b border-[var(--line)]" aria-hidden="true">
+    <div class="container mx-auto px-6 py-6 flex flex-col space-y-4">
+      <a href="#about"        class="nav-link anchor-link">Sobre</a>
+      <a href="#services"     class="nav-link anchor-link">Serviços</a>
+      <a href="#results"      class="nav-link anchor-link">Resultados</a>
+      <a href="#testimonials" class="nav-link anchor-link">Depoimentos</a>
+      <a href="#plans"        class="nav-link anchor-link">Planos</a>
+      <a href="#contact"      class="nav-link anchor-link">Contato</a>
+      <div class="pt-2">
+        <a href="#contact" class="btn btn--primary w-full text-center">Fale Conosco</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= JS do HEADER ================= -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('site-header');
+    const btn    = document.getElementById('mobile-menu-button');
+    const menu   = document.getElementById('mobile-menu');
+    const openI  = document.getElementById('menu-icon');
+    const closeI = document.getElementById('close-icon');
+
+    const setExpanded = (state) => {
+      btn?.setAttribute('aria-expanded', String(state));
+      menu?.classList.toggle('open', state);
+      openI?.classList.toggle('hidden', state);
+      closeI?.classList.toggle('hidden', !state);
+      menu?.setAttribute('aria-hidden', String(!state));
+    };
+
+    // Toggle menu mobile
+    if (btn && menu) {
+      btn.addEventListener('click', () => setExpanded(!menu.classList.contains('open')));
+
+      // Fechar ao clicar num link
+      menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => setExpanded(false));
+      });
+
+      // Fechar ao clicar fora
+      document.addEventListener('click', (e) => {
+        if (!menu.classList.contains('open')) return;
+        const path = e.composedPath ? e.composedPath() : [];
+        if (!path.includes(menu) && !path.includes(btn)) setExpanded(false);
+      });
+
+      // Fechar com ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setExpanded(false);
+      });
+
+      // Reset ao mudar viewport
+      const mq = window.matchMedia('(min-width: 1024px)');
+      mq.addEventListener?.('change', () => setExpanded(false));
+    }
+
+    // Shrink ao rolar
+    const onScroll = () => {
+      const scrolled = window.scrollY > 8;
+      header.classList.toggle('shadow-sm', scrolled);
+      header.classList.toggle('bg-[var(--bg)]/90', scrolled);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive:true });
+
+    // ScrollSpy: controla só aria-current (sem alterar cor)
+    const links = Array.from(document.querySelectorAll('.anchor-link'));
+    const map = new Map(links.map(a => [a.getAttribute('href'), a]));
+    const targets = ['#about','#services','#results','#testimonials','#plans','#contact']
+      .map(id => document.querySelector(id)).filter(Boolean);
+
+    if (targets.length && links.length) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = '#'+entry.target.id;
+          const link = map.get(id);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            links.forEach(l => l.removeAttribute('aria-current'));
+            link.setAttribute('aria-current','page');
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0.01 });
+
+      targets.forEach(el => io.observe(el));
+    }
+  });
+</script>
+
+<!-- ================= CSS pontual para ícones do botão mobile ================= -->
+<style>
+  .icon-sheen{
+    -webkit-mask-image: linear-gradient(120deg,#000 40%,rgba(0,0,0,.45) 50%,#000 60%);
+            mask-image: linear-gradient(120deg,#000 40%,rgba(0,0,0,.45) 50%,#000 60%);
+    transition: transform .2s, filter .2s;
+  }
+  @media (hover:hover){
+    .icon-sheen:hover{ transform: translateY(-1px); filter: brightness(1.06) contrast(1.05); }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Hero (fundo branco + altura reduzida + partículas super clean) -->
+<section id="hero" class="relative bg-white pt-24">
+  <!-- Fundo/partículas -->
+  <div id="canvas-container" class="absolute inset-0 z-0 pointer-events-none">
+    <canvas id="bg-wave" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"></canvas>
+  </div>
+
+  <div class="container mx-auto px-6 py-10 md:py-14 min-h-[50vh] md:min-h-[56vh] flex items-center relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <span id="hero-badge" class="kicker">Agência Digital Premium</span>
+
+      <h1 id="hero-title" class="h-title text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-4 leading-tight">
+        Transformamos marcas com <span class="text-gradient">conteúdo que vende</span>
+      </h1>
+
+      <p id="hero-subtitle" class="text-xl md:text-2xl text-gray-600 mt-6 max-w-3xl mx-auto">
+        Estratégia, performance e execução para resultados reais.
+      </p>
+
+      <div id="hero-buttons" class="mt-10 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+        <a href="#contact" class="btn btn--primary btn--lg text-center">Fale com um especialista</a>
+        <a href="#services" class="btn btn--secondary btn--lg text-center">Conheça nossos serviços</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partículas estilo “pixel paper” -->
+<script>
+(function () {
+  const wrap = document.getElementById("canvas-container");
+  const cnv  = document.getElementById("bg-wave");
+  if (!wrap || !cnv) return;
+  const ctx = cnv.getContext("2d", { alpha: true });
+
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let cols=0, rows=0, t=0;
+
+  const css  = getComputedStyle(document.documentElement);
+  const colA = (css.getPropertyValue("--primary")   || "#FF6B00").trim();
+  const colB = (css.getPropertyValue("--primary-2") || "#FF8A33").trim();
+
+  const A = hexToRgb(colA), B = hexToRgb(colB);
+
+  const cfg = {
+    gap: 52,      // espaçamento maior
+    amp: 8,       // amplitude discreta
+    speed: 0.7,   // velocidade lenta
+    size: 1       // pontos fixos
+  };
+
+  function hexToRgb(h){
+    const x = +("0x" + h.replace("#",""));
+    return { r:(x>>16)&255, g:(x>>8)&255, b:x&255 };
+  }
+  const mix=(x,y,p)=>Math.round(x + (y-x)*p);
+
+  function resize(){
+    const r = wrap.getBoundingClientRect();
+    cnv.width  = Math.floor(r.width  * DPR);
+    cnv.height = Math.floor(r.height * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    cols = Math.ceil(r.width  / cfg.gap) + 2;
+    rows = Math.ceil(r.height / cfg.gap) + 2;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  function draw(){
+    ctx.clearRect(0,0,cnv.width,cnv.height);
+
+    const TWO = Math.PI * 2;
+    const phase = t * cfg.speed;
+
+    for(let iy=0; iy<rows; iy++){
+      for(let ix=0; ix<cols; ix++){
+        // checkerboard offset: linhas ímpares deslocam meio gap
+        const x = ix * cfg.gap + (iy % 2 ? cfg.gap/2 : 0);
+        const y = iy * cfg.gap;
+
+        const wave = Math.sin((ix/cols)*TWO + phase) * Math.cos((iy/rows)*TWO + phase*0.7);
+        const dy   = wave * cfg.amp;
+
+        // cor entre colA e colB
+        const p = ix/cols;
+        const r = mix(A.r, B.r, p);
+        const g = mix(A.g, B.g, p);
+        const b = mix(A.b, B.b, p);
+
+        const a = 0.025 + Math.abs(wave)*0.08; // alpha bem baixo
+
+        ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+        ctx.fillRect(Math.round(x), Math.round(y+dy), cfg.size, cfg.size);
+      }
+    }
+
+    t += 0.016;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Sobre -->
+<section id="sobre" class="section section--alt">
+  <div class="container mx-auto px-6">
+    <!-- Título -->
+    <div class="text-center mb-16">
+      <span class="kicker">Quem somos</span>
+      <h2 class="h-title text-3xl md:text-4xl lg:text-5xl mt-3 mb-4">
+        Sobre a <span class="text-gradient">AGILIZE</span>
+      </h2>
+      <p class="text-gray-700 max-w-3xl mx-auto">
+        Conheça nossa história e nossa missão de transformar negócios através do marketing digital.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <!-- Missão -->
+      <article class="card p-8 lg:p-10">
+        <h3 class="text-2xl md:text-3xl font-extrabold mb-4 text-[var(--text)]">
+          Nossa <span class="text-gradient">Missão</span>
+        </h3>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+          Crescimento, performance e presença digital forte — com estratégia que gera vendas.
+        </p>
+
+        <div class="grid grid-cols-3 divide-x divide-[var(--line)]">
+          <div class="pr-4">
+            <div class="text-4xl font-extrabold text-primary">95</div>
+            <div class="text-xs text-gray-500 mt-1">Projetos concluídos</div>
+          </div>
+          <div class="px-4">
+            <div class="text-4xl font-extrabold text-primary">87%</div>
+            <div class="text-xs text-gray-500 mt-1">Aumento médio</div>
+          </div>
+          <div class="pl-4">
+            <div class="text-4xl font-extrabold text-primary">24</div>
+            <div class="text-xs text-gray-500 mt-1">Especialistas</div>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <a href="#contato" class="btn btn--primary">Falar com a equipe</a>
+        </div>
+      </article>
+
+      <!-- Diferenciais (cards laranja) -->
+      <div class="grid grid-cols-1 gap-6">
+        <!-- Estratégia -->
+        <article class="p-6 rounded-xl bg-[var(--primary)] text-white shadow-lg hover:-translate-y-[3px] transition">
+          <div class="flex items-start gap-4">
+            <div class="p-3 rounded-lg bg-white/20 text-white" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-1">Estratégia Personalizada</h4>
+              <p class="opacity-90">Planejamento sob medida para objetivos e público de cada marca.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Resultados -->
+        <article class="p-6 rounded-xl bg-[var(--primary)] text-white shadow-lg hover:-translate-y-[3px] transition">
+          <div class="flex items-start gap-4">
+            <div class="p-3 rounded-lg bg-white/20 text-white" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-1">Resultados Mensuráveis</h4>
+              <p class="opacity-90">Indicadores claros, relatórios e otimização contínua.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Inovação -->
+        <article class="p-6 rounded-xl bg-[var(--primary)] text-white shadow-lg hover:-translate-y-[3px] transition">
+          <div class="flex items-start gap-4">
+            <div class="p-3 rounded-lg bg-white/20 text-white" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-1">Inovação Constante</h4>
+              <p class="opacity-90">Últimas tendências e tecnologias aplicadas ao seu negócio.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- CTA final -->
+    <div class="mt-16 text-center">
+      <a href="#contato" class="btn btn--secondary btn--lg">Conheça mais sobre nós</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<!-- Serviços -->
+<section id="servicos" class="py-28 bg-white relative overflow-hidden">
+  <span id="services" class="absolute -top-24 h-0 w-0" aria-hidden="true"></span>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <!-- Título -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">
+        Nossos <span class="text-gradient">Serviços</span>
+      </h2>
+      <p class="mt-3 text-gray-600 max-w-3xl mx-auto">
+        Soluções completas para impulsionar sua presença digital e aumentar seus resultados.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+
+      <!-- Card 1 — CONTORNO LARANJA -->
+      <article class="group rounded-xl p-8 bg-white border-2 border-[var(--primary)] shadow-sm
+                      transition-all duration-300 hover:-translate-y-[3px] hover:shadow-lg">
+        <div class="mb-6 inline-flex items-center justify-center h-14 w-14 rounded-xl
+                    ring-2 ring-[var(--primary)] bg-[var(--primary)]/5 text-[var(--primary)]">
+          <!-- layout -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18M7 9v10"/>
+          </svg>
+        </div>
+
+        <h3 class="text-2xl font-extrabold mb-2">Criação de Sites</h3>
+        <p class="text-gray-700 mb-5">Sites modernos, responsivos e focados em conversão e performance.</p>
+
+        <ul class="space-y-2.5 text-gray-800">
+          <li class="flex gap-2"><svg class="h-4 w-4 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Design Responsivo</li>
+          <li class="flex gap-2"><svg class="h-4 w-4 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Otimização SEO</li>
+          <li class="flex gap-2"><svg class="h-4 w-4 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Integração com CMS</li>
+        </ul>
+      </article>
+
+      <!-- Card 2 — LARANJA CHAPADO -->
+      <article class="group rounded-xl p-8 bg-[var(--primary)] text-white border-2 border-[var(--primary)] shadow-lg
+                      transition-all duration-300 hover:-translate-y-[3px] hover:shadow-xl">
+        <span class="inline-block mb-4 text-[11px] font-semibold px-3 py-1 rounded-full bg-white/18">Destaque</span>
+
+        <div class="mb-6 inline-flex items-center justify-center h-14 w-14 rounded-xl bg-white/20 text-white">
+          <!-- social/calendar -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18M8 2v4M16 2v4M8 13h5"/>
+          </svg>
+        </div>
+
+        <h3 class="text-2xl font-extrabold mb-2">Gestão de Redes</h3>
+        <p class="mb-5 opacity-95">Conteúdo, calendário, criação e gestão com foco em crescimento.</p>
+
+        <ul class="space-y-2.5">
+          <li class="flex gap-2"><svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Planejamento de Conteúdo</li>
+          <li class="flex gap-2"><svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Design de Posts</li>
+          <li class="flex gap-2"><svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Relatórios de Performance</li>
+        </ul>
+      </article>
+
+      <!-- Card 3 — CONTORNO LARANJA -->
+      <article class="group relative rounded-xl p-8 bg-white border-2 border-[var(--primary)] shadow-sm
+                      transition-all duration-300 hover:-translate-y-[3px] hover:shadow-lg">
+        <div class="mb-6 inline-flex items-center justify-center h-14 w-14 rounded-xl
+                    ring-2 ring-[var(--primary)] bg-[var(--primary)]/5 text-[var(--primary)]">
+          <!-- alvo/ads -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"/>
+          </svg>
+        </div>
+
+        <h3 class="text-2xl font-extrabold mb-2">Tráfego Pago</h3>
+        <p class="text-gray-700 mb-5">Campanhas otimizadas para ROI com segmentação e testes constantes.</p>
+
+        <ul class="space-y-2.5 text-gray-800">
+          <li class="flex gap-2"><svg class="h-4 w-4 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Google Ads</li>
+          <li class="flex gap-2"><svg class="h-4 w-4 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Facebook &amp; Instagram Ads</li>
+          <li class="flex gap-2"><svg class="h-4 w-4 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Remarketing</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-20 text-center">
+      <a href="#contato" class="btn btn--primary btn--lg inline-flex items-center justify-center rounded-full">
+        Solicite um orçamento
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Resultados (Gráfico + Painel com destaque no gráfico) -->
+<section id="resultados" class="section section--alt">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-10">
+      <span class="kicker">Dados de Mercado</span>
+      <h2 class="h-title text-3xl md:text-5xl mt-3 mb-4">
+        Story de <span class="text-gradient">crescimento</span>
+      </h2>
+      <p class="text-gray-700 text-lg md:text-xl max-w-3xl mx-auto">
+        Acompanhe a evolução com dados acionáveis do setor e entenda cada marco com clareza.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <!-- Card do gráfico -->
+      <div class="rounded-xl bg-gradient-to-b from-[#ff6b00] to-[#ff8533] p-6 relative shadow-lg">
+        <!-- Barra de progresso -->
+        <div id="progress-bar" class="absolute top-0 left-0 h-1 bg-white/70 rounded-full w-0"></div>
+
+        <svg id="story-chart" viewBox="0 0 800 400" class="w-full h-auto select-none mt-4">
+          <!-- Grid -->
+          <g stroke="rgba(255,255,255,0.25)" stroke-width="1">
+            <line x1="60" y1="340" x2="760" y2="340"/>
+            <line x1="60" y1="240" x2="760" y2="240"/>
+            <line x1="60" y1="140" x2="760" y2="140"/>
+            <line x1="60" y1="40"  x2="760" y2="40"/>
+          </g>
+          <!-- Labels eixo Y -->
+          <g fill="#fff" font-size="12" text-anchor="end">
+            <text x="55" y="345">0%</text>
+            <text x="55" y="245">25%</text>
+            <text x="55" y="145">50%</text>
+            <text x="55" y="45">75%</text>
+          </g>
+          <!-- Labels eixo X -->
+          <g fill="#fff" font-size="12" text-anchor="middle">
+            <text x="60" y="360">Jan</text>
+            <text x="160" y="360">Fev</text>
+            <text x="260" y="360">Mar</text>
+            <text x="360" y="360">Abr</text>
+            <text x="460" y="360">Mai</text>
+            <text x="560" y="360">Jun</text>
+            <text x="660" y="360">Jul</text>
+            <text x="760" y="360">Ago</text>
+          </g>
+
+          <!-- Linha e área -->
+          <defs>
+            <linearGradient id="lineGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#fff"/>
+              <stop offset="100%" stop-color="#ffd6b3"/>
+            </linearGradient>
+            <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+          </defs>
+          <path id="area" d="" fill="url(#areaGrad)"></path>
+          <path id="line" d="" fill="none" stroke="url(#lineGrad)" stroke-width="3.5" stroke-linecap="round"></path>
+          <g id="points" fill="#fff"></g>
+        </svg>
+
+        <!-- Card pequeno dentro do gráfico -->
+        <div id="chart-caption" class="caption-card">...</div>
+      </div>
+
+      <!-- Card do conteúdo lateral -->
+      <div id="details-panel" class="bg-white rounded-xl border-l-4 border-primary p-8 shadow transition-all duration-500">
+        <div class="flex items-center gap-3 mb-4">
+          <div id="details-icon" class="text-primary"></div>
+          <h3 id="details-title" class="text-2xl font-extrabold text-[var(--text,#111827)]">
+            Detalhes do marco
+          </h3>
+        </div>
+        <div id="details-content" class="text-gray-700 text-lg leading-relaxed space-y-4">
+          <!-- Preenchido via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .caption-card {
+      position:absolute; top:80px; left:120px;
+      background:#fff; border:2px solid #ff6b00;
+      border-radius:.75rem; padding:.5rem .9rem;
+      font-weight:700; color:#111827;
+      box-shadow:0 8px 18px rgba(0,0,0,.15);
+      opacity:0; transition:opacity .35s ease, transform .35s ease;
+    }
+    .caption-card.show {opacity:1; transform:translateY(-8px);}
+    .pulse {animation:pulse 1.5s infinite}
+    @keyframes pulse {50%{r:7; filter:drop-shadow(0 0 6px rgba(255,255,255,.9))}}
+    #details-panel.fade-out {opacity:0; transform:translateX(10px)}
+    .text-primary {color:#ff6b00;}
+    .border-primary {border-color:#ff6b00;}
+  </style>
+
+  <script>
+  (function(){
+    const values=[12,15,18,22,26,31,37,45,49,58,68,75];
+    const months=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    const slides=[
+      { idx:2, title:'+15% inicial',
+        details:`<p><b>Resumo:</b> Crescimento constante no começo.</p>
+                 <p><b>Impacto:</b> Base sólida para escalar.</p>
+                 <p><b>Insight:</b> <span class="text-primary font-bold">20% menos risco</span> em campanhas iniciais.</p>
+                 <div class="text-primary font-bold text-xl">+15%</div>`},
+      { idx:4, title:'+30% de média anual no setor',
+        details:`<p><b>Resumo:</b> Crescimento consolidado do mercado.</p>
+                 <p><b>Impacto:</b> Define metas realistas.</p>
+                 <p><b>Insight:</b> <span class="text-primary font-bold">75%</span> das empresas chegam a esse nível.</p>
+                 <div class="text-primary font-bold text-xl">+30%</div>`}
+    ];
+
+    const AUTO_MS=12000;
+    const line=document.getElementById('line'),
+          area=document.getElementById('area'),
+          ptsG=document.getElementById('points'),
+          caption=document.getElementById('chart-caption'),
+          panel=document.getElementById('details-panel'),
+          panelTitle=document.getElementById('details-title'),
+          panelContent=document.getElementById('details-content');
+
+    const W=800,H=400,PAD_L=60,PAD_R=40,PAD_T=40,PAD_B=60;
+    const innerW=W-PAD_L-PAD_R, innerH=H-PAD_T-PAD_B;
+    const minY=Math.min(...values), maxY=Math.max(...values);
+    const yMin=Math.floor(minY-(maxY-minY)*0.1), yMax=Math.ceil(maxY+(maxY-minY)*0.1);
+    const xStep=innerW/(values.length-1);
+    const x=i=>PAD_L+i*xStep, y=v=>PAD_T+innerH-((v-yMin)/(yMax-yMin))*innerH;
+
+    line.setAttribute('d',values.map((v,i)=>`${i?'L':'M'} ${x(i)} ${y(v)}`).join(' '));
+    area.setAttribute('d',`M ${x(0)} ${y(values[0])} `+values.slice(1).map((v,i)=>`L ${x(i+1)} ${y(v)}`).join(' ')+
+      ` L ${x(values.length-1)} ${PAD_T+innerH} L ${x(0)} ${PAD_T+innerH} Z`);
+    ptsG.innerHTML=values.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="4"/>`).join('');
+
+    let current=0,timerId=null;
+    function updatePanel(slide){
+      panel.classList.add('fade-out');
+      setTimeout(()=>{
+        panelTitle.textContent=slide.title;
+        panelContent.innerHTML=slide.details;
+        panel.classList.remove('fade-out');
+        caption.textContent=slide.title;
+        caption.classList.add('show');
+      },250);
+    }
+    function go(i){
+      current=(i+slides.length)%slides.length;
+      updatePanel(slides[current]);
+      const pb=document.getElementById('progress-bar');
+      pb.style.transition="none"; pb.style.width="0%";
+      setTimeout(()=>{pb.style.transition=`width ${AUTO_MS}ms linear`; pb.style.width="100%";},50);
+    }
+    function auto(){clearInterval(timerId); timerId=setInterval(()=>go(current+1),AUTO_MS);}
+    go(0); auto();
+  })();
+  </script>
+</section>
+
+
+
+
+
+
+<!-- ================= ROLETAX v4.2 — card laranja + giro extra por compartilhamento no WhatsApp ================= -->
+<section id="roletax" class="py-20" data-share-text="Olha esse bônus da Agilize! 🎯" >
+  <div class="container mx-auto px-6">
+    <div id="ra-layout" class="ra-start">
+      <!-- ROLETA -->
+      <div class="ra-wheel-col relative">
+        <!-- ponteiro -->
+        <div class="ra-pointer absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+          <div class="w-0 h-0 border-l-8 border-r-8 border-b-[18px] border-l-transparent border-r-transparent border-b-gray-800"></div>
+        </div>
+
+        <div id="ra-stage" class="mx-auto">
+          <canvas id="ra-canvas" style="width:clamp(300px,34vw,480px);height:auto;display:block;background:transparent;"></canvas>
+        </div>
+
+        <div class="mt-6 flex flex-col items-center gap-2">
+          <button id="ra-spin" class="bg-[#ff6b00] text-white px-8 py-3 rounded-xl font-semibold shadow hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            Girar agora
+          </button>
+          <p class="text-xs text-gray-500">Giros disponíveis: <span id="ra-spins">1</span></p>
+        </div>
+      </div>
+
+      <!-- RESULTADO / INDICAÇÃO -->
+      <aside id="ra-result" class="ra-card hidden ra-reveal">
+        <div class="ra-card-head">
+          <span class="ra-badge">Cupom aplicado</span>
+        </div>
+
+        <h3 class="ra-title">
+          Você ganhou <span id="ra-value" class="ra-value"></span>
+        </h3>
+        <p class="ra-sub">Aplicado automaticamente no Contato/WhatsApp — sem copiar código.</p>
+
+        <details class="ra-details">
+          <summary>Regras rápidas</summary>
+          <ul>
+            <li>Aplicado no pagamento final do projeto.</li>
+            <li>Não cumulativo com outras promoções.</li>
+            <li>Válido para novos projetos fechados em até 30 dias.</li>
+          </ul>
+        </details>
+
+        <!-- BLOCO INDICAÇÃO / GIRO EXTRA -->
+        <div class="ra-indic">
+          <div class="ra-indic-head">
+            <span class="ra-gift">🎁</span>
+            <div>
+              <strong>Indique & ganhe</strong>
+              <p>Cada compartilhamento concluído libera <b>+1 giro</b> (máx. 5/dia).</p>
+            </div>
+          </div>
+
+          <div class="ra-indic-cta">
+            <button id="ra-share" class="btn-orange">Compartilhar no WhatsApp (+1 giro)</button>
+            <small class="ra-indic-note">O giro é liberado quando você retornar do WhatsApp.</small>
+          </div>
+
+          <div class="ra-extra-info">
+            Giros extras de hoje: <b><span id="ra-extra">0</span>/5</b>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="ra-confetti" class="pointer-events-none fixed inset-0 hidden"></div>
+</section>
+
+<style>
+  /* layout centrado antes/depois do giro */
+  #ra-layout.ra-start{
+    display:grid; gap:clamp(16px,2.5vw,28px); place-items:center; justify-content:center;
+  }
+  #ra-layout.ra-post{
+    display:grid; grid-template-columns:auto auto; align-items:center; justify-content:center;
+    gap:clamp(22px,5vw,64px);
+  }
+  @media (max-width:1024px){ #ra-layout.ra-post{ grid-template-columns:1fr; } }
+
+  /* ===== CARD MAIS LARANJA ===== */
+  .ra-card{
+    width:100%; max-width:var(--ra-wheel-w,480px);
+    border-radius:18px;
+    /* borda-lateral laranja */
+    background:linear-gradient(90deg, rgba(255,107,0,.06) 0%, rgba(255,255,255,.8) 40%);
+    border:1px solid rgba(255,107,0,.2);
+    box-shadow:0 10px 34px rgba(255,107,0,.16), 0 6px 16px rgba(0,0,0,.05);
+    padding:clamp(18px,2.2vw,28px);
+    -webkit-backdrop-filter:saturate(140%) blur(6px);
+    backdrop-filter:saturate(140%) blur(6px);
+  }
+  .ra-card-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .ra-badge{
+    display:inline-block; font-weight:800; font-size:12px; letter-spacing:.02em;
+    padding:6px 10px; border-radius:999px;
+    color:#3b1e00; background:linear-gradient(90deg,#ffd7b8,#ffc89a);
+    border:1px solid #ffb87a;
+  }
+  .ra-title{ margin:8px 0 2px; color:#0f172a; font-weight:900; font-size:clamp(20px,2.2vw,28px); line-height:1.2; }
+  .ra-value{
+    font-weight:900;
+    background:linear-gradient(90deg,#ff6b00,#db5d00);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .ra-sub{ color:#475569; font-size:14px; line-height:1.45; margin-top:6px; }
+  .ra-details{ margin-top:10px; }
+  .ra-details summary{ cursor:pointer; color:#ff6b00; font-weight:700; font-size:13px; }
+  .ra-details ul{ margin-top:6px; padding-left:16px; color:#475569; font-size:13px; }
+  .ra-details li{ list-style:disc; margin:4px 0; }
+
+  /* Indicação / compartilhamento */
+  .ra-indic{ margin-top:14px; border:1px dashed rgba(255,107,0,.45); border-radius:14px; padding:12px 14px; background:rgba(255,107,0,.05); }
+  .ra-indic-head{ display:flex; align-items:flex-start; gap:10px; }
+  .ra-gift{ font-size:18px; line-height:1; }
+  .ra-indic-cta{ margin-top:10px; display:flex; flex-direction:column; gap:8px; }
+  .btn-orange{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:#ff6b00; color:white; font-weight:800; padding:10px 14px; border-radius:12px;
+    box-shadow:0 6px 16px rgba(255,107,0,.28); border:1px solid #db5d00;
+    transition:transform .08s ease, filter .08s ease;
+  }
+  .btn-orange:hover{ transform:translateY(-1px); filter:saturate(1.05); }
+  .ra-indic-note{ color:#7a7a7a; font-size:12px; }
+  .ra-extra-info{ margin-top:6px; font-size:13px; color:#4b5563; }
+
+  /* transições */
+  .ra-reveal{opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease}
+  .ra-reveal.ra-show{opacity:1; transform:translateY(0)}
+  @keyframes ra-pop{0%{transform:scale(.98)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+  .ra-pop{animation:ra-pop .35s ease-out}
+  .ra-pointer-bounce{animation:raPB .5s ease-out}
+  @keyframes raPB{0%{transform:translateY(0)}30%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+
+  /* confete */
+  .ra-confetti-piece{position:absolute;width:10px;height:14px;top:-20px;animation:raFall linear forwards}
+  @keyframes raFall{to{transform:translateY(110vh) rotate(720deg);opacity:.95}}
+</style>
+
+<script>
+(()=>{'use strict';
+  /* ================= Base ================= */
+  const sectors = [
+    { label:'15% OFF', value:15, colorA:'#ff6b00', colorB:'#ff8a33', weight:6 },
+    { label:'10% OFF', value:10, colorA:'#171717', colorB:'#101010', weight:10 },
+    { label:'5% OFF',  value:5,  colorA:'#ff6b00', colorB:'#ff8a33', weight:16 },
+    { label:'3% OFF',  value:3,  colorA:'#171717', colorB:'#101010', weight:20 },
+    { label:'2% OFF',  value:2,  colorA:'#ff6b00', colorB:'#ff8a33', weight:22 },
+    { label:'1% OFF',  value:1,  colorA:'#171717', colorB:'#101010', weight:26 }
+  ];
+  const MAX_EXTRA_PER_DAY = 5;      // giros extras por dia
+  const SPIN_DURATION = { min:7, max:20, baseTurns:6 };
+
+  // DOM
+  const root   = document.getElementById('roletax');
+  const layout = document.getElementById('ra-layout');
+  const stage  = document.getElementById('ra-stage');
+  const canvas = document.getElementById('ra-canvas');
+  const ctx    = canvas.getContext('2d');
+  const spinBtn= document.getElementById('ra-spin');
+  const spinsEl= document.getElementById('ra-spins');
+  const resBox = document.getElementById('ra-result');
+  const resVal = document.getElementById('ra-value');
+  const shareBtn = document.getElementById('ra-share');
+  const extraEl  = document.getElementById('ra-extra');
+  const conf   = document.getElementById('ra-confetti');
+
+  /* ================= Giro/dia com extras ================= */
+  const LS_KEY = 'ra.spins';
+  function todayKey(){ const d=new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
+  function loadState(){
+    const raw = localStorage.getItem(LS_KEY); const t=todayKey();
+    if(!raw) return { day:t, available:1, used:0, extra:0 };
+    let s; try{ s=JSON.parse(raw)||{} }catch{ s=null }
+    if(!s || s.day!==t) return { day:t, available:1, used:0, extra:0 };
+    return s;
+  }
+  function saveState(s){ localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+
+  let state = loadState(); updateSpinUI();
+  function updateSpinUI(){
+    spinsEl.textContent = state.available;
+    spinBtn.disabled = state.available<=0;
+    extraEl.textContent = state.extra;
+  }
+
+  /* ================= Canvas HiDPI/Desenho ================= */
+  let dpr=Math.max(1,window.devicePixelRatio||1);
+  function syncCanvas(){
+    const cssW = stage.getBoundingClientRect().width || 480;
+    canvas.style.height = cssW+'px';
+    canvas.width  = Math.floor(cssW*dpr);
+    canvas.height = Math.floor(cssW*dpr);
+    document.documentElement.style.setProperty('--ra-wheel-w', cssW+'px');
+  }
+  new ResizeObserver(()=>{ syncCanvas(); draw(angle); }).observe(stage);
+  (document.readyState==='complete'||document.readyState==='interactive')
+    ? setTimeout(()=>{ syncCanvas(); draw(angle); },0)
+    : window.addEventListener('DOMContentLoaded', ()=>{ syncCanvas(); draw(angle); });
+
+  const N=sectors.length;
+  const cx=()=>canvas.width/2, cy=()=>canvas.height/2, R=()=>Math.min(cx(),cy())-10*dpr;
+  const grad=(a,b)=>{ const g=ctx.createLinearGradient(0,0,canvas.width,canvas.height); g.addColorStop(0,a); g.addColorStop(1,b); return g; };
+  function labelFit(txt,x,y,ang){
+    const maxW=(R()-56*dpr); let fs=Math.round(14*dpr);
+    ctx.save(); ctx.translate(x,y); ctx.rotate(ang);
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.strokeStyle='rgba(0,0,0,.85)'; ctx.lineWidth=3*dpr;
+    while(fs>10*dpr){
+      ctx.font=`${fs}px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial`;
+      if(ctx.measureText(txt).width<=maxW) break; fs-=1*dpr;
+    }
+    ctx.fillStyle='#fff'; ctx.strokeText(txt,0,0); ctx.fillText(txt,0,0); ctx.restore();
+  }
+  function pointerBounce(){ const p=document.querySelector('.ra-pointer'); p?.classList.add('ra-pointer-bounce'); setTimeout(()=>p?.classList.remove('ra-pointer-bounce'),520); }
+
+  let angle = -Math.PI/2;
+  function draw(rot=angle){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.save(); ctx.translate(cx(),cy()); ctx.rotate(rot);
+
+    // anel externo
+    ctx.beginPath(); ctx.arc(0,0,R(),0,Math.PI*2);
+    ctx.lineWidth=10*dpr; ctx.strokeStyle=grad('#ff6b00','#ff8a33'); ctx.stroke();
+
+    // fatias
+    const innerR=R()-10*dpr; let start=0;
+    for(let i=0;i<N;i++){
+      const a=2*Math.PI/N, end=start+a;
+      ctx.beginPath(); ctx.moveTo(0,0);
+      ctx.fillStyle=grad(sectors[i].colorA,sectors[i].colorB);
+      ctx.arc(0,0,innerR,start,end); ctx.closePath(); ctx.fill();
+
+      const mid=(start+end)/2;
+      labelFit(sectors[i].label, (innerR-40*dpr)*Math.cos(mid), (innerR-40*dpr)*Math.sin(mid), mid+Math.PI/2);
+      start=end;
+    }
+
+    // miolo
+    ctx.beginPath(); ctx.fillStyle='#0e0e0e'; ctx.arc(0,0,46*dpr,0,Math.PI*2); ctx.fill();
+    ctx.lineWidth=2*dpr; ctx.strokeStyle='#222'; ctx.stroke();
+    ctx.beginPath(); ctx.fillStyle='#111'; ctx.arc(0,0,34*dpr,0,Math.PI*2); ctx.fill();
+    ctx.lineWidth=4*dpr; ctx.strokeStyle='#ff6b00'; ctx.stroke();
+    ctx.save(); ctx.fillStyle='#fff';
+    ctx.font=`${Math.round(12*dpr)}px ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.strokeStyle='rgba(0,0,0,.85)'; ctx.lineWidth=3*dpr;
+    ctx.strokeText('BÔNUS',0,2*dpr); ctx.fillText('BÔNUS',0,2*dpr);
+    ctx.restore();
+
+    ctx.restore();
+
+    // tics
+    ctx.save(); ctx.translate(cx(),cy());
+    for(let i=0;i<N;i++){
+      const a=i*(2*Math.PI/N)-Math.PI/2+rot;
+      ctx.save(); ctx.rotate(a+Math.PI/2);
+      ctx.beginPath(); ctx.strokeStyle='#ff6b00'; ctx.lineWidth=2*dpr;
+      ctx.moveTo(0,-R()+8*dpr); ctx.lineTo(0,-R()-6*dpr); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  /* ================= lógica de giro ================= */
+  function pickWeighted(ws){ const tot=ws.reduce((a,b)=>a+b,0); let r=Math.random()*tot; for(let i=0;i<ws.length;i++){ if(r<ws[i]) return i; r-=ws[i]; } return ws.length-1; }
+  function confetti(){
+    conf.classList.remove('hidden'); conf.innerHTML='';
+    for(let i=0;i<88;i++){
+      const s=document.createElement('div');
+      s.className='ra-confetti-piece';
+      s.style.left=(Math.random()*100)+'%';
+      s.style.background=`hsl(${Math.random()*360},92%,55%)`;
+      s.style.animationDuration=(1.5+Math.random()*1.3)+'s';
+      conf.appendChild(s);
+    }
+    setTimeout(()=>conf.classList.add('hidden'),2200);
+  }
+  const vibrate=(ms=25)=>{ if(navigator.vibrate) try{navigator.vibrate(ms);}catch{} };
+
+  let spinning=false;
+  spinBtn.addEventListener('click', () => {
+    if(spinning || state.available<=0) return;
+    spinning=true; spinBtn.disabled=true;
+
+    const idx=pickWeighted(sectors.map(s=>s.weight));
+    const slice=2*Math.PI/N;
+    const target=(Math.PI*2)-(idx*slice+slice/2);
+    const jitter=(Math.random()*0.03-0.015);
+    const final=(SPIN_DURATION.baseTurns*Math.PI*2)+target+jitter;
+
+    const dur=Math.min(SPIN_DURATION.max, Math.max(SPIN_DURATION.min, SPIN_DURATION.min + Math.random()*(SPIN_DURATION.max-SPIN_DURATION.min)));
+    const start=performance.now(); const startA=angle; const easeOut=t=>1-Math.pow(1-t,3);
+
+    const step=(now)=>{
+      const p=Math.min(1,(now-start)/(dur*1000));
+      angle=startA+(final-startA)*easeOut(p);
+      draw(angle);
+      if(p<1) requestAnimationFrame(step); else finish(idx);
+    };
+    requestAnimationFrame(step);
+  });
+
+  function finish(idx){
+    // consome 1 giro
+    state.available = Math.max(0, state.available-1);
+    state.used += 1;
+    saveState(state); updateSpinUI();
+
+    // abre card e centraliza layout
+    layout.classList.remove('ra-start'); layout.classList.add('ra-post');
+    resVal.textContent = sectors[idx].label;
+    resBox.classList.remove('hidden'); resBox.classList.add('ra-show');
+    resBox.querySelector('.ra-title').classList.add('ra-pop');
+    setTimeout(()=>resBox.querySelector('.ra-title').classList.remove('ra-pop'),450);
+
+    pointerBounce(); confetti(); vibrate(35);
+    spinning=false;
+  }
+
+  /* ================= compartilhamento -> +1 giro ================= */
+  let pendingShare = false, shareTimer = null;
+  shareBtn.addEventListener('click', () => {
+    if(state.extra >= MAX_EXTRA_PER_DAY) return;
+
+    const text = (root.getAttribute('data-share-text')||'').trim() || 'Bônus Agilize!';
+    const url  = window.location.origin + window.location.pathname; // compartilha a página atual
+    const token= Math.random().toString(36).slice(2,8).toUpperCase();
+    const msg  = `${text} ${url}?ref=${token}`;
+
+    // preferir Web Share API em mobile
+    if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      pendingShare = true;
+      navigator.share({ text: msg })
+        .catch(()=>{})  // usuário pode cancelar
+        .finally(startShareWatch);
+    } else {
+      // WhatsApp web/app
+      pendingShare = true;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+      startShareWatch();
+    }
+  });
+
+  function startShareWatch(){
+    // concede o giro quando a aba voltar a ficar visível OU por timeout de segurança
+    let hiddenOnce=false;
+    const onVis = () => {
+      if(document.hidden) { hiddenOnce=true; return; }
+      if(hiddenOnce && pendingShare) grantExtraSpin();
+      cleanup();
+    };
+    const cleanup = () => {
+      document.removeEventListener('visibilitychange', onVis);
+      clearTimeout(shareTimer); shareTimer=null; pendingShare=false;
+    };
+    document.addEventListener('visibilitychange', onVis);
+    shareTimer = setTimeout(()=>{ if(pendingShare) grantExtraSpin(); cleanup(); }, 7000);
+  }
+
+  function grantExtraSpin(){
+    if(state.extra >= MAX_EXTRA_PER_DAY) return;
+    state.extra += 1;
+    state.available += 1;
+    saveState(state); updateSpinUI();
+    // micro feedback
+    shareBtn.classList.add('ra-pop');
+    setTimeout(()=>shareBtn.classList.remove('ra-pop'),450);
+  }
+
+})();</script>
+
+
+
+
+
+
+
+
+<!-- ===================== CONTATO | Bloco completo (coeso com o site) ===================== -->
+<section id="contato" class="section section--alt" data-wa="5547997544016">
+  <div class="agz-gradient-top"></div>
+
+  <div class="container">
+    <!-- Coluna Texto -->
+    <div class="col col--left">
+      <span class="kicker">Fale com a equipe</span>
+      <h2 class="h-title">
+        Pronto para <span class="text-gradient">impulsionar</span> seus resultados?
+      </h2>
+      <p class="lead">Receba um diagnóstico gratuito com oportunidades claras de crescimento.</p>
+
+      <ul class="contact-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m8 0a4 4 0 100-8H8a4 4 0 100 8m8 0v6a2 2 0 01-2 2H10a2 2 0 01-2-2v-6"/></svg>
+          <a href="mailto:contato@agilize.com.br">contato@agilize.com.br</a>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h1l3 5-3 5H5a2 2 0 01-2-2V5zm7 0h3l3 5-3 5h-3l-3-5 3-5zm7 0h1a2 2 0 012 2v6a2 2 0 01-2 2h-1l-3-5 3-5z"/></svg>
+          <a href="https://wa.me/5547997544016" target="_blank" rel="noopener">(47) 99754-4016</a>
+        </li>
+      </ul>
+
+      <div class="card card--soft">
+        📈 <span>Mais de <strong class="hl">170 empreendedores</strong> já solicitaram essa análise.</span>
+      </div>
+    </div>
+
+    <!-- Coluna Form -->
+    <div class="col col--right">
+      <div class="card p">
+        <h3 class="card-title">Solicite seu Diagnóstico</h3>
+        <p class="muted">Preencha e retornamos em até 24h úteis.</p>
+
+        <form id="contatoForm" novalidate>
+          <!-- honeypot anti-spam -->
+          <input type="text" name="company" class="hp" tabindex="-1" aria-hidden="true"/>
+
+          <input class="agz-input" name="nome" autocomplete="name" placeholder="Seu nome *" required/>
+          <input class="agz-input" name="email" type="email" autocomplete="email" placeholder="seu@email.com *" required/>
+
+          <div class="grid-2">
+            <input class="agz-input" name="whats" inputmode="tel" autocomplete="tel" placeholder="WhatsApp (opcional)"/>
+            <input class="agz-input" name="origem" placeholder="Site/Instagram (opcional)"/>
+          </div>
+
+          <div class="relative">
+            <textarea class="agz-input ta" rows="4" name="mensagem" maxlength="600" placeholder="Como podemos ajudar seu negócio? *" required></textarea>
+            <span id="charCount" class="charcount">0/600</span>
+          </div>
+
+          <!-- auxiliares -->
+          <input type="hidden" name="utm"/>
+          <input type="hidden" name="premio"/>
+
+          <div class="cta-row">
+            <button id="btnEnviar" type="submit" class="btn btn--primary btn--lg sticky-mobile" disabled>
+              🚀 Quero meu Diagnóstico Gratuito
+            </button>
+
+            <button type="button"
+                    onclick="window.open('https://wa.me/5547997544016?text=Ol%C3%A1%2C%20quero%20um%20diagn%C3%B3stico','_blank')"
+                    class="btn btn--secondary btn--lg">
+              💬 Falar no WhatsApp
+            </button>
+          </div>
+
+          <p id="formFeedback" class="footnote" aria-live="polite">
+            Seus dados estão seguros. Nada de spam.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ===== Tokens básicos (segue tua paleta) ===== */
+:root{
+  --primary:#FF6B00; --primary-2:#FF8A33;
+  --text:#0f0f0f; --muted:#6b7280; --line:#EDEDED; --bg:#ffffff;
+}
+
+/* ===== Layout seção ===== */
+#contato.section{position:relative;padding:5.5rem 0;background:var(--bg)}
+#contato .agz-gradient-top{position:absolute;top:0;left:0;width:100%;height:4px;
+  background:linear-gradient(90deg,transparent,rgba(255,107,0,.28),transparent)}
+#contato .container{max-width:1120px;margin:0 auto;padding:0 1.5rem;
+  display:grid;grid-template-columns:1fr;gap:2.75rem}
+@media (min-width: 1024px){#contato .container{grid-template-columns:1fr 1fr;gap:3.25rem}}
+
+/* ===== Colunas ===== */
+#contato .col--left .h-title{font-size:clamp(2.1rem,3.6vw,3.2rem);line-height:1.1;font-weight:900;letter-spacing:-.02em;color:var(--text)}
+#contato .text-gradient{background:linear-gradient(90deg,var(--primary),var(--primary-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+#contato .kicker{display:inline-block;margin-bottom:.85rem;padding:.45rem .9rem;border-radius:999px;
+  background:rgba(255,107,0,.08);color:var(--primary);font-weight:800;box-shadow:0 0 0 1px rgba(255,107,0,.18) inset, 0 8px 18px rgba(255,107,0,.08)}
+#contato .lead{font-size:1.125rem;color:#475569}
+#contato .contact-list{list-style:none;margin:1rem 0 1.25rem 0;padding:0;display:grid;gap:.5rem;color:#1f2937}
+#contato .contact-list li{display:flex;gap:.6rem;align-items:center}
+#contato .contact-list svg{width:20px;height:20px;color:var(--primary)}
+
+/* ===== Cards ===== */
+#contato .card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 38px rgba(16,24,40,.06)}
+#contato .card.p{padding:2rem}
+#contato .card--soft{border-radius:16px;padding:1rem 1.1rem;display:flex;gap:.6rem;align-items:center}
+#contato .card--soft .hl{color:var(--primary)}
+
+/* ===== Form ===== */
+#contato .card-title{font-weight:900;font-size:1.6rem;margin:0 0 .35rem;color:var(--text)}
+#contato .muted{color:var(--muted);margin-bottom:1.25rem}
+#contato .hp{position:absolute;left:-9999px}
+
+#contato .agz-input{
+  width:100%;height:52px;padding:.8rem 1rem;border-radius:14px;
+  border:1px solid var(--line);background:#fff;color:var(--text);
+  transition:border .2s, box-shadow .2s, background .2s;
+}
+#contato .agz-input.ta{min-height:132px;height:auto;resize:vertical;padding-right:3.2rem}
+#contato .agz-input::placeholder{color:#94a3b8}
+#contato .agz-input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(255,107,0,.15);outline:0}
+#contato .agz-input.is-invalid{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.15)!important}
+
+#contato .grid-2{display:grid;gap:1rem}
+@media (min-width: 640px){#contato .grid-2{grid-template-columns:1fr 1fr}}
+
+#contato .relative{position:relative}
+#contato .charcount{position:absolute;right:.6rem;bottom:.45rem;font-size:.75rem;color:#94a3b8}
+
+/* ===== Botões ===== */
+#contato .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-weight:800;border-radius:999px;cursor:pointer}
+#contato .btn--lg{padding:14px 22px;font-size:1rem}
+#contato .btn--primary{
+  background:linear-gradient(90deg,var(--primary),var(--primary-2));color:#fff;border:0;
+  box-shadow:0 12px 22px rgba(255,107,0,.28);transition:transform .15s, box-shadow .2s, filter .2s;
+}
+#contato .btn--primary:hover{transform:translateY(-1px);box-shadow:0 18px 30px rgba(255,107,0,.36)}
+#contato .btn--primary[aria-busy="true"]{filter:saturate(.92) brightness(.98);pointer-events:none;position:relative}
+#contato .btn--primary[aria-busy="true"]::after{
+  content:"";position:absolute;inset:0;border-radius:999px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  animation:shine 1.1s linear infinite}
+@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+#contato .btn--secondary{border:1px solid rgba(17,24,39,.12);background:#fff;color:#111}
+#contato .btn--secondary:hover{border-color:var(--primary);box-shadow:0 6px 18px rgba(255,107,0,.12)}
+
+#contato .cta-row{display:flex;flex-direction:column;gap:.8rem;margin-top:.6rem}
+#contato .footnote{margin-top:.6rem;text-align:center;color:#64748b;font-size:.8rem}
+
+/* Sticky CTA no mobile (opcional) */
+@media (max-width: 680px){
+  #contato .sticky-mobile{position:sticky;bottom:14px;z-index:20;width:100%}
+}
+</style>
+
+<script>
+(()=> {
+  const sec  = document.getElementById('contato');
+  const form = document.getElementById('contatoForm');
+  if (!sec || !form) return;
+
+  const btn   = document.getElementById('btnEnviar');
+  const fb    = document.getElementById('formFeedback');
+  const msg   = form.mensagem;
+  const cc    = document.getElementById('charCount');
+
+  // contador + auto-resize da mensagem
+  const upd = () => { cc.textContent = `${msg.value.length}/600`; msg.style.height='auto'; msg.style.height = msg.scrollHeight+'px'; };
+  msg.addEventListener('input', upd); upd();
+
+  // pega UTM e prêmio (se sua roleta salvou em storage)
+  try {
+    const p = new URLSearchParams(location.search);
+    form.utm.value = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']
+      .map(k=>p.get(k)?`${k}=${p.get(k)}`:null).filter(Boolean).join('&');
+    form.premio.value = localStorage.getItem('ra.spins.lastPrize') || ''; // ajuste se usar outro nome
+  } catch {}
+
+  // validação viva
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const mark = (el, ok)=> el.classList.toggle('is-invalid', !ok);
+  const validate = ()=>{
+    const okN = !!form.nome.value.trim();
+    const okE = emailRx.test(form.email.value.trim());
+    const okM = !!form.mensagem.value.trim();
+    mark(form.nome, okN); mark(form.email, okE); mark(form.mensagem, okM);
+    btn.disabled = !(okN && okE && okM && !form.company.value);
+  };
+  form.addEventListener('input', validate); validate();
+
+  // submit -> abre WhatsApp
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    if (btn.disabled) return;
+    btn.setAttribute('aria-busy','true');
+
+    const linhas = [
+      '🧭 *Pedido de Diagnóstico*',
+      `• Nome: ${form.nome.value.trim()}`,
+      `• E-mail: ${form.email.value.trim()}`,
+      form.whats.value.trim()  ? `• WhatsApp: ${form.whats.value.trim()}` : null,
+      form.origem.value.trim() ? `• Site/Instagram: ${form.origem.value.trim()}` : null,
+      form.premio.value        ? `• Prêmio: ${form.premio.value}` : null,
+      form.utm.value           ? `• UTM: ${form.utm.value}` : null,
+      '• Mensagem:',
+      form.mensagem.value.trim()
+    ].filter(Boolean).join('\n');
+
+    const to = sec.dataset.wa || '5547997544016';
+    window.open(`https://wa.me/${to}?text=${encodeURIComponent(linhas)}`, '_blank', 'noopener');
+
+    try{ window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'lead_submit', form:'contato', has_prize: !!form.premio.value}); }catch{}
+    fb.textContent = 'Abrimos o WhatsApp com seus dados. Envie a mensagem para finalizar ✅';
+    btn.removeAttribute('aria-busy');
+  });
+})();
+</script>
+
+
+
+
+  
+
+  <!-- Scripts unificados -->
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    let menuOpen = false;
+
+    mobileMenuButton.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      mobileMenu.setAttribute('aria-hidden', String(!menuOpen));
+      menuIcon.classList.toggle('hidden', menuOpen);
+      closeIcon.classList.toggle('hidden', !menuOpen);
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        menuOpen = false;
+      });
+    });
+
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('glass', 'py-3');
+        header.classList.remove('py-4');
+      } else {
+        header.classList.remove('glass', 'py-3');
+        header.classList.add('py-4');
+      }
+    });
+
+    // Smooth scroll (respeita header fixo)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const targetId = anchor.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (!target) return;
+        e.preventDefault();
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+
+    // GSAP animations (somente se disponível e sem motion reduzido)
+    function initAnimations() {
+      if (!window.gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      gsap.registerPlugin(ScrollTrigger);
+      ['#hero-badge','#hero-title','#hero-subtitle','#hero-buttons','#hero-stats'].forEach((el, i) => {
+        gsap.to(el, { opacity: 1, y: 0, duration: 0.8, delay: 0.2 + i*0.2, ease: 'power2.out' });
+      });
+      document.querySelectorAll('.fade-in').forEach(element => {
+        gsap.fromTo(element, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, scrollTrigger: { trigger: element, start: 'top 80%' } });
+      });
+      gsap.fromTo('.service-card', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, scrollTrigger: { trigger: '#servicos', start: 'top 70%' } });
+    }
+
+    // Contadores (única rotina)
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          io.unobserve(el);
+          const target = +el.getAttribute('data-target');
+          let count = 0;
+          const inc = Math.max(1, Math.ceil(target / 100));
+          const tick = () => {
+            count = Math.min(target, count + inc);
+            el.textContent = count + (target >= 100 ? '+' : '');
+            if (count < target) requestAnimationFrame(tick);
+          };
+          tick();
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => io.observe(c));
+    }
+
+    // Three.js background (desktop + sem motion reduzido)
+    function init3DBackground() {
+      if (!window.THREE) return;
+      const desktop = window.matchMedia('(pointer:fine)').matches && window.innerWidth >= 1024;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!desktop || reduce) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 5;
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+
+      const container = document.getElementById('canvas-container');
+      if (container) container.appendChild(renderer.domElement);
+
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particlesCount = 1500;
+      const posArray = new Float32Array(particlesCount * 3);
+      for (let i = 0; i < particlesCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 10;
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xFF6B00, transparent: true, opacity: 0.5 });
+      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particlesMesh);
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.y += 0.0005;
+        particlesMesh.rotation.x += 0.0002;
+        renderer.render(scene, camera);
+      };
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    // Init
+    window.addEventListener('load', () => {
+      initAnimations();
+      animateCounters();
+      init3DBackground();
+    });
+  </script>
+</body>
+
+
+</html>
